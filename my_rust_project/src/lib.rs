@@ -1,33 +1,20 @@
 use pyo3::prelude::*;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-pub fn my_rust_fn() {
-    println!("调用了 Rust 函数 my_rust_fn");
+fn my_rust_fn1() {
+    println!("调用了 Rust 函数：my_rust_fn1");
 }
 
 
 #[pyfunction]
-pub fn my_rust_fn2() {
-    println!("调用了 Rust 函数 my_rust_fn");
-}
-
-#[pymodule]
-fn rust_module(_py: Python, m: &PyModule) -> PyResult<()> {
-    m.add_function(wrap_pyfunction!(my_rust_fn2,m)?)?;
+fn my_rust_fn2() -> PyResult<()> {
+    my_rust_fn1();
+    println!("调用了 Rust 函数：my_rust_fn2");
     Ok(())
 }
 
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+#[pymodule]
+fn my_rust_project(_py: Python, m: &PyModule) -> PyResult<()> {
+    // 这个函数名 my_rust_project 一定要按需修改，否则 import 的时候找不到
+    m.add_function(wrap_pyfunction!(my_rust_fn2, m)?)?;
+    Ok(())
 }
