@@ -1,0 +1,16 @@
+from python_with_rust import my_rust_project
+
+
+
+# 创建 Recorder 的实例
+recorder = my_rust_project.MyRecorder()
+
+# 调用 func1 几次来增加计数
+recorder.func1()
+recorder.func1()
+recorder.func1()
+
+# 调用 func2 获取当前的计数
+print(recorder.func2())  # 应该输出 3
+
+
