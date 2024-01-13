@@ -2,6 +2,9 @@
 # python_with_rust
 
 演示 Python 如何调用一个 Rust 项目
+1. Python 传给 Rust 这些数据结构：str, int, float, list, dict 等
+2. Rust 返回给 Python 这些数据结构：String, i32, f64, Vec<i32>, Vec<String>
+3. Python 使用 Rust 类
 
 ## 一、环境要求
 
@@ -40,5 +43,5 @@ python examples/example4.py # 测试可以调用 Rust 类
     - 也可以不要这一层，而是直接编译 `my_rust_project1`，然后用 python 的 ctypes 来调用，实际上是 ffi 方法。这种方法参见 [郭飞的笔记](https://www.guofei.site/2022/08/28/rust2.html#Python%20%E8%B0%83%E7%94%A8%20Rust%20%E7%BC%96%E8%AF%91%E5%90%8E)
     - 使用 ffi 的缺点是需要自定义数据类型，并有内存泄露的风险
     - 使用 ffi 的优点是某些情况下潜在性能更高，在 Rust 项目较小的情况下才推荐
-    - 这个项目展示使用 `pyo3` 的方案
+    - 因此这个项目展示使用 `pyo3` 的方案
 - python 调用 `my_rust_project1`，从而间接调用了 `my_rust_project`

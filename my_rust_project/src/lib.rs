@@ -47,29 +47,9 @@ fn get_list() -> PyResult<PyObject> {
 
 
 #[pyfunction]
-fn get_list3() -> PyResult<PyObject> {
-    let rust_vec = vec![1, 2, 3];
-    Python::with_gil(|py| {
-        let python_list = PyList::new(py, &rust_vec);
-        Ok(python_list.to_object(py))
-    })
-}
-
-#[pyfunction]
-fn get_list2() -> PyResult<PyObject> {
-    let rust_vec = vec![1, 2, 3];
-    let py = Python::with_gil(|py| {
-        let python_list = PyList::new(py, &rust_vec);
-        Ok(python_list.to_object(py))
-    });
-    py
-}
-
-
-#[pyfunction]
 fn get_list_of_string() -> PyResult<PyObject> {
+    let rust_vec_of_string = vec!["string1".to_string(), "string2".to_string(), "string3".to_string()];
     Python::with_gil(|py| {
-        let rust_vec_of_string = vec!["string1".to_string(), "string2".to_string(), "string3".to_string()];
         let python_list = PyList::new(py, rust_vec_of_string);
         Ok(python_list.to_object(py))
     })
@@ -114,7 +94,7 @@ fn accept_python_types(
 }
 
 
-// 把 python 对象传进来
+// 把 python 字典传进来
 #[pyfunction]
 fn accept_python_object(obj: &PyAny) -> PyResult<()> {
     println!("Rust 接收一个 Python对象");
