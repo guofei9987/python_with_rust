@@ -61,8 +61,13 @@ dependencies = [
 name = "my_rust_project"
 version = "0.1.0"
 dependencies = [
+ "my_rust_project1",
  "pyo3",
 ]
+
+[[package]]
+name = "my_rust_project1"
+version = "0.1.0"
 
 [[package]]
 name = "once_cell"

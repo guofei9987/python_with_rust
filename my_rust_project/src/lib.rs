@@ -1,4 +1,5 @@
 use pyo3::prelude::*;
+use my_rust_project1;
 
 fn my_rust_fn1() {
     println!("调用了 Rust 函数：my_rust_fn1");
@@ -7,6 +8,7 @@ fn my_rust_fn1() {
 
 #[pyfunction]
 fn my_rust_fn2() -> PyResult<()> {
+    my_rust_project1::my_rust_fn1_1();
     my_rust_fn1();
     println!("调用了 Rust 函数：my_rust_fn2");
     Ok(())
