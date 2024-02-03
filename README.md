@@ -39,9 +39,15 @@ python examples/example4.py # 测试可以调用 Rust 类
 ## 三、说明
 
 - `./my_rust_project1` 是一个纯 Rust 项目
-- `./my_rust_project` 调用 `my_rust_project1`，并使用 pyo3 使其可以被 Python 调用。它相当于 “中间协调层”
-    - 也可以不要这一层，而是直接编译 `my_rust_project1`，然后用 python 的 ctypes 来调用，实际上是 ffi 方法。这种方法参见 [郭飞的笔记](https://www.guofei.site/2022/08/28/rust2.html#Python%20%E8%B0%83%E7%94%A8%20Rust%20%E7%BC%96%E8%AF%91%E5%90%8E)
-    - 使用 ffi 的缺点是需要自定义数据类型，并有内存泄露的风险
-    - 使用 ffi 的优点是某些情况下潜在性能更高，在 Rust 项目较小的情况下才推荐
-    - 因此这个项目展示使用 `pyo3` 的方案
+- `./my_rust_project` 是一个中间层，它使用 pyo3 使自身可以被 Python 调用，它还调用 `my_rust_project1`
+    - 目的是让 `./my_rust_project1` 不用考虑被 python 调用时的各种问题，成为纯粹的 Rust 项目，不被 `pyo3` 污染
 - python 调用 `my_rust_project1`，从而间接调用了 `my_rust_project`
+- 但是在中间层 `./my_rust_project` 执行 `cargo build` 会失败（可能与什么配置有关）
+- 另一个方案是 ffi 方法，使用 C 标准编译 `my_rust_project1`，编译后的代码可以被 Python(ctypes)/C/Rust/Java 调用。具体参见 [郭飞的笔记](https://www.guofei.site/2022/08/28/rust2.html#Python%20%E8%B0%83%E7%94%A8%20Rust%20%E7%BC%96%E8%AF%91%E5%90%8E)
+    - 缺点是需要自定义数据类型，并有内存泄露的风险。优点是某些情况下潜在性能更高
+    - 使用 `pyo3` 是以一个比较好的实践，这个项目展示使用 `pyo3` 的方案
+
+
+关于名称
+- 使用 python 的 `from python_with_rust import my_rust_project` 时，这里的 `my_rust_project` 对应的是 `./my_rust_project/src/lib.rs` 中 `#[pymodule]` 定义的那个函数
+- `setup.py` 中的 `RustExtension("python_with_rust.my_rust_project")` 对应的是安装后的文件夹名、.so 文件名。为了防止混乱，最好取值为 python 项目名、Rust 项目名
