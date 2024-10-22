@@ -1,6 +1,7 @@
 from setuptools import setup
 from setuptools_rust import Binding, RustExtension
 import os
+
 # 配合使用：
 this_directory = os.path.abspath(os.path.dirname(__file__))
 
@@ -20,10 +21,12 @@ def read_requirements(filename):
 
 setup(
     name='python_with_rust',
-    version='0.0.1',
+    version='0.0.2',
     python_requires='>=3.5',
     packages=['python_with_rust'],
     install_requires=read_requirements('requirements.txt'),
+    description='Python 调用 Rust 的示例',
+    long_description=read_file('README.md'),
     rust_extensions=[
         RustExtension("python_with_rust.my_rust_project",
                       path="./my_rust_project/Cargo.toml", binding=Binding.PyO3)

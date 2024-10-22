@@ -39,9 +39,8 @@ python examples/example4.py # 测试可以调用 Rust 类
 ## 三、说明
 
 - `./my_rust_project1` 是一个纯 Rust 项目
-- `./my_rust_project` 是一个中间层，它使用 pyo3 使自身可以被 Python 调用，它还调用 `my_rust_project1`
+- `./my_rust_project` 是一个中间层，它使用 pyo3，调用 `my_rust_project1` 并被 Python 调用
     - 目的是让 `./my_rust_project1` 不用考虑被 python 调用时的各种问题，成为纯粹的 Rust 项目，不被 `pyo3` 污染
-- python 调用 `my_rust_project1`，从而间接调用了 `my_rust_project`
 - 但是在中间层 `./my_rust_project` 执行 `cargo build` 会失败（可能与什么配置有关）
 - 另一个方案是 ffi 方法，使用 C 标准编译 `my_rust_project1`，编译后的代码可以被 Python(ctypes)/C/Rust/Java 调用。具体参见 [郭飞的笔记](https://www.guofei.site/2022/08/28/rust2.html#Python%20%E8%B0%83%E7%94%A8%20Rust%20%E7%BC%96%E8%AF%91%E5%90%8E)
     - 缺点是需要自定义数据类型，并有内存泄露的风险。优点是某些情况下潜在性能更高
