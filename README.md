@@ -5,20 +5,20 @@
 1. Python 传给 Rust 这些数据结构：str, int, float, list, dict 等
 2. Rust 返回给 Python 这些数据结构：String, i32, f64, Vec<i32>, Vec<String>
 3. Python 使用 Rust 类
+4. 把 Python 项目发布，并且兼容多种操作系统
+
+
+说明
+- 自从 [PEP 518](https://peps.python.org/pep-0518/) 以来，`pyproject.toml` 是比 `setup.py` 更为先进的构建文件。
+- 使用 `setup.py` 管理方式见于分支 [use_setup.py](https://github.com/guofei9987/python_with_rust/tree/use_setup.py)，main 分支使用 `pyproject.toml`
+
 
 ## 一、环境要求
 
 1. 安装 rust 和 cargo，并升级到最新版本（略）
 2. python 环境
 ```
-pip install --upgrade pip
-pip install -r requirements.txt 
-```
-3. cc（c编译器）
-```
-sudo apt update
-sudo apt install build-essential
-sudo apt install gcc
+pip install --upgrade pip setuptools setuptools-rust
 ```
 
 ## 二、测试
