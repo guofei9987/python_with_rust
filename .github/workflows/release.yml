@@ -89,4 +89,4 @@ jobs:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI }}
         run: |
-          twine upload wheels/**/*.whl
+          twine upload wheels/*.whl
