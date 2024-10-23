@@ -68,11 +68,15 @@ jobs:
   publish:
     needs: build-and-publish
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ] #[ubuntu-latest, macos-latest, windows-latest]
+        python-version: [ '3.9' ] #['3.9', '3.10', '3.11']
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: '**'
+          name: wheels-${{ matrix.os }}-${{ matrix.python-version }}
           path: wheels
 
       - name: Install Twine
