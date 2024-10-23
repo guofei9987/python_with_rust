@@ -72,7 +72,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          name: 'wheels-*'
+          name: '**'
           path: wheels
 
       - name: Install Twine
