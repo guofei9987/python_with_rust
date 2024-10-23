@@ -57,7 +57,7 @@ jobs:
 
       - name: Build wheels
         run: |
-          maturin build --release --manifest-path pyproject.toml
+          maturin build --release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
