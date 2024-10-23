@@ -15,17 +15,18 @@
 
 ## 一、环境要求
 
-1. 安装 rust 和 cargo，并升级到最新版本（略）
-2. python 环境
+1. 安装 rust、Python（略）
+2. 安装必要的包
+```shell
+pip install maturin
 ```
-pip install --upgrade pip setuptools setuptools-rust
-```
+
 
 ## 二、测试
 
 安装
 ```shell
-pip install .
+maturin develop
 ```
 
 测试

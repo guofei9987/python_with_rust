@@ -1,0 +1,15 @@
+[package]
+name = "python_with_rust"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+my_rust_project1 = { path = "./my_rust_project1" }
+#pyo3 = { version = "0.20.2", features = ["extension-module"] }
+
+pyo3 = "0.22.5"
+
+[lib]
+name = "python_with_rust"
+crate-type = ["cdylib"]

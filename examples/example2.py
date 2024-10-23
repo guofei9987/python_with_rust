@@ -1,3 +1,3 @@
-from python_with_rust import my_rust_project
+from python_with_rust import python_with_rust
 
-my_rust_project.my_rust_fn2()
+python_with_rust.my_rust_fn2()

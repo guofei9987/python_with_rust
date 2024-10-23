@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use pyo3::prelude::*;
 use my_rust_project1;
 use pyo3::types::{PyFloat, PyInt, PyList, PyString};
@@ -40,17 +41,18 @@ fn get_f64() -> PyResult<f64> {
 fn get_list() -> PyResult<PyObject> {
     let rust_vec = vec![1, 2, 3];
     Python::with_gil(|py| {
-        let python_list = PyList::new(py, &rust_vec);
+        let python_list = PyList::new_bound(py, &rust_vec);
         Ok(python_list.to_object(py))
     })
 }
 
 
+// 报错：
 #[pyfunction]
 fn get_list_of_string() -> PyResult<PyObject> {
     let rust_vec_of_string = vec!["string1".to_string(), "string2".to_string(), "string3".to_string()];
     Python::with_gil(|py| {
-        let python_list = PyList::new(py, rust_vec_of_string);
+        let python_list = PyList::new_bound(py, rust_vec_of_string);
         Ok(python_list.to_object(py))
     })
 }
@@ -60,7 +62,7 @@ fn get_list_of_string() -> PyResult<PyObject> {
 fn get_list_of_float() -> PyResult<PyObject> {
     Python::with_gil(|py| {
         let rust_vec_of_float = vec![1.0, 2.5, 3.14];
-        let python_list = PyList::new(py, rust_vec_of_float);
+        let python_list = PyList::new_bound(py, rust_vec_of_float);
         Ok(python_list.to_object(py))
     })
 }
@@ -69,46 +71,35 @@ fn get_list_of_float() -> PyResult<PyObject> {
 // 从 Python 接收参数
 #[pyfunction]
 fn accept_python_types(
-    list: &PyList,
-    string: &PyString,
-    integer: &PyInt,
-    float: &PyFloat,
+    list: Vec<i32>,
+    dict: HashMap<String, f32>,
+    string: String,
+    integer: i32,
+    float: f64,
 ) -> PyResult<()> {
-    println!("调用了 Rust 函数：accept_python_types，这个函数从 Python 接收 list、str、int、float 类型");
-
-    for item in list.iter() {
-        println!("List item: {:?}", item);
-    }
-
-    let rust_string = string.to_str()?;
-    println!("String: {}", rust_string);
-
-    let rust_int = integer.extract::<i64>()?;
-    println!("Integer: {}", rust_int);
-
-    let rust_float = float.extract::<f64>()?;
-    println!("Float: {}", rust_float);
-
-    println!("函数调用完成\n\n");
+    println!(r"
+    调用了 Rust 函数：[accept_python_types]
+    接收了:
+    list = {:?}
+    dict = {:?}
+    String = {},
+    i32 = {},
+    f64 = {}", list, dict, string, integer, float);
     Ok(())
 }
 
 
-// 把 python 字典传进来
 #[pyfunction]
-fn accept_python_object(obj: &PyAny) -> PyResult<()> {
-    println!("Rust 接收一个 Python对象");
-    // 检查传入的对象是否是一个字典
-    if let Ok(dict) = obj.downcast::<PyDict>() {
-        // 使用字典
-        for (key, value) in dict {
-            println!("{}: {}", key, value);
-        }
-    } else {
-        // 对象不是字典，处理其它情况
-        println!("The object is not a dict!");
-    }
+fn accept_python_object(dict: HashMap<String, f32>) -> PyResult<()> {
+    // // 提取字典中的某个键的值并转换为 String
+    // if let Some(value) = dict.get_item("key") {
+    //     let extracted_value: String = value.extract()?;
+    //     return Ok(format!("Received from Python dict: {}", extracted_value));
+    // }
+    //
+    // Err(PyErr::new::<pyo3::exceptions::PyKeyError, _>("Key not found"))
 
+    println!("传入 dict = {:?}", dict);
     Ok(())
 }
 
@@ -137,7 +128,7 @@ impl MyRecorder {
 
 
 #[pymodule]
-fn my_rust_project(_py: Python, m: &PyModule) -> PyResult<()> {
+fn python_with_rust(m: &Bound<'_, PyModule>) -> PyResult<()> {
     // 这个函数名 my_rust_project 一定要按需修改，否则 import 的时候找不到
     m.add_function(wrap_pyfunction!(my_rust_fn2, m)?)?;
     m.add_function(wrap_pyfunction!(get_str, m)?)?;

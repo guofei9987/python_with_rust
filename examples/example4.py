@@ -1,9 +1,9 @@
-from python_with_rust import my_rust_project
+from python_with_rust import python_with_rust
 
 
 
 # 创建 Recorder 的实例
-recorder = my_rust_project.MyRecorder()
+recorder = python_with_rust.MyRecorder()
 
 # 调用 func1 几次来增加计数
 recorder.func1()
