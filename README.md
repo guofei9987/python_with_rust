@@ -17,7 +17,7 @@
 
 两种方式：
 1. 使用 `pip install python_with_rust==0.1.5` 但只限于已经对对应的环境预编译的情况，包含：
-    - `ubuntu-latest`, `macos-latest`, `windows-latest`; python 版本为：'3.7', '3.8', '3.9', '3.10', '3.11' ,'3.12'
+    - `ubuntu-latest`, `macos-latest`, `windows-latest`; python 版本为：'3.8', '3.9', '3.10', '3.11' ,'3.12'
     - 使用 CI 方法，在 **release** 时从 pypi 针对一些环境预编译并发布，CI见于[workflows/release.yml](workflows/release.yml)
     - pypi 托管的预编译文件可以查看 [https://pypi.org/project/numpy/#files](https://pypi.org/project/numpy/#files)
 2. 如果环境不在上述范围内，可以下载项目后在本地编译并安装。包括以下情况：
@@ -25,8 +25,8 @@
     - manylinux/musllinux 的 aarch64版本。一般出现在移动设备、嵌入式设备上，或者用 MacBook 打开的默认 docker
     - Linux 的 glibc 版本较老的
     - win32
+    - macOS 14.7 + arm64 不支持 python 3.7，因此没发布较老的 Python 版本
     - 上述情况实际上也可以用 CI 方法批量向 pypi 发布。但此项目只是示例，没必要都涵盖。
-    - `uname -m` 查询架构， `python -c "import platform; print(platform.machine())"` 查询环境
 
 
 
