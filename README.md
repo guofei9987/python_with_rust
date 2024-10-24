@@ -13,21 +13,34 @@
 - 使用 `setup.py` 管理方式见于分支 [use_setup.py](https://github.com/guofei9987/python_with_rust/tree/use_setup.py)，main 分支使用 `pyproject.toml`
 
 
-## 一、环境要求
+## 一、安装
 
-1. 安装 rust、Python（略）
+两种方式
+- 几个环境可以用 `pip install python_with_rust==0.1.3`
+
+
+
+1. 安装 rust、Python（略），升级
 2. 安装必要的包
 ```shell
 pip install maturin
 ```
+3. 从 pypi 安装 python_with_rust
+```shell
+pip install python_with_rust
+# 或者在本地安装
+matruin develop
+```
 
+
+说明：为了防止包的数量过多，有些情况没在 pypi 上托管。但是你仍然可以下载仓库后，在本地安装。  
+
+这些系统没有在 pypi 上托管（`uname -m` 查询架构， `python -c "import platform; print(platform.machine())"` 查询环境）：
+- macos x86 版本（也就是 Intel 的 MacBook）
+- 虽然是 M 系列处理器，但是 python 环境是通过 Rosetta 2 以 Intel 模拟模式运行的
+- Linux 的 glibc 版本为 2.34，低版本的没有在 pypi 上
 
 ## 二、测试
-
-安装
-```shell
-maturin develop
-```
 
 测试
 ```shell
