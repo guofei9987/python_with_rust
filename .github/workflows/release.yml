@@ -11,9 +11,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11', '3.12' ]
-        arch: [ x64, aarch64 ]
-        libc: [ default, glibc-2.17 ]
+        python-version: [ '3.7', '3.8', '3.9', '3.10', '3.11', '3.12' ]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -73,9 +71,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
-        python-version: [ '3.8', '3.9', '3.10', '3.11' ]
-        arch: [ x64, aarch64 ]
-        libc: [ default, glibc-2.17 ]
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11' ,'3.12' ]
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v3
